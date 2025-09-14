@@ -1,0 +1,53 @@
+<html>
+<body>
+<div class="wrap">
+  <!-- Left card -->
+  <div class="card">
+    <h1>TIN URL generator</h1>
+    <p class="lead">Enter a 12-digit TIN and press <strong>Generate</strong>.</p>
+
+
+    <div class="form-row" style="margin-top:8px">
+      <div class="input-tin">
+        <input
+          id="tinInput"
+          type="text"
+          [(ngModel)]="tin"
+          maxlength="12"
+          placeholder="Enter 12-digit TIN"
+        />
+      </div>
+      <button id="genBtn" class="btn" (click)="generateUrl()">Generate</button>
+    </div>
+
+
+    <div class="hint">Only digits allowed. Length must be exactly 12.</div>
+  </div>
+
+
+  <!-- Right panel -->
+  <div class="result-panel">
+    <div>
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="font-weight:700">Generated URL</div>
+        <div id="badge" class="hint">{{ badge }}</div>
+      </div>
+
+
+      <div id="urlBox" class="url-box" style="margin-top:12px">
+        {{ generatedUrl || 'generating...' }}
+      </div>
+    </div>
+
+
+    <div>
+      <div class="actions">
+        <button class="small ghost" (click)="redirect()" [disabled]="!generatedUrl">Redirect</button>
+        <button class="small btn" (click)="copy()" [disabled]="!generatedUrl">Copy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
