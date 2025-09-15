@@ -11,8 +11,10 @@ import {FormsModule} from '@angular/forms';
 })
 export class UserAccess {
   tin: string = '';
-  generatedUrl: string = '';
+  generatedUrl: string = '-----';
   badge: string = 'Not generated';
+  toastMessage: string = '';
+  showToast: boolean = false;
 
   generateUrl() {
     if (/^\\d{12}$/.test(this.tin)) {
@@ -26,8 +28,15 @@ export class UserAccess {
 
   copy() {
     if (this.generatedUrl) {
-      navigator.clipboard.writeText(this.generatedUrl);
-      this.badge = 'Copied!';
+      navigator.clipboard.writeText(this.generatedUrl).then(() => {
+        this.toastMessage = 'Copied to clipboard!';
+        this.showToast = true;
+
+        // Hide toast after 2.5s
+        setTimeout(() => {
+          this.showToast = false;
+        }, 2500);
+      });
     }
   }
 
