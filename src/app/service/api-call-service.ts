@@ -22,7 +22,7 @@ export interface SignUpRequest {
   providedIn: 'root'
 })
 export class ApiCallService {
-  private authUrl = BASE_URL_BACKEND + '/authenticationservice/v3/api/authenticate/taxpayer';
+  private authUrl = '/authenticationservice/v3/api/authenticate/taxpayer';
   private signupUrl = BASE_URL_BACKEND + '/filingservice/v3/api/auth/sign-up';
   private generatePassUrl = BASE_URL_BACKEND + '/filingservice/v3/api/auth/generate-pass';
 

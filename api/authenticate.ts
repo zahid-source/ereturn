@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import fetch from 'node-fetch';
-import {BASE_URL_BACKEND} from '../app/service/constant';
+import {BASE_URL_BACKEND} from '../src/app/service/constant';
 
 const BASE_URL = BASE_URL_BACKEND;
 
