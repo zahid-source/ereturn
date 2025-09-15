@@ -1,17 +1,11 @@
 /* Full-page container */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: #f0f2f5;
-}
 
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 95vh;
+  height: 100vh;
+  background: #dcdcdc;
 }
 
 /* Card */
@@ -20,11 +14,11 @@ html, body {
   align-items: stretch; /* full height alignment for left/right sections */
   background: #fff;
   border-radius: 15px;
-  padding: 30px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-  width: 900px;
+  padding: 20px;
+  /*box-shadow: 0 12px 30px rgba(0,0,0,0.12);*/
+  width: 950px;
   max-width: 100%;
-  gap: 30px;
+  gap: 10px;
   transition: all 0.3s ease;
 }
 
@@ -106,7 +100,6 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 20px;
 }
 
 .url-box {
@@ -115,7 +108,7 @@ html, body {
   border: 1px solid #ddd;
   border-radius: 8px;
   font-family: monospace;
-  font-size: 14px;
+  font-size: 10px;
   margin-bottom: 15px;
   word-break: break-all;
 }
@@ -160,7 +153,9 @@ html, body {
 }
 
 /* Slide in from top and fade in */
-.toast {
+
+/* Success toast (green) */
+.toast-success {
   position: fixed;
   top: 20px;
   right: 20px;
@@ -169,7 +164,24 @@ html, body {
   padding: 14px 20px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  font-size: 14px;
+  font-size: 22px;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: slideIn 0.3s forwards, fadeOut 0.3s 2.2s forwards;
+}
+
+/* Error toast (red) */
+.toast-error {
+  background-color: #dc3545;
+  position: fixed;
+  top: 20px;
+  right: 20px; /* green for success */
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  font-size: 22px;
   z-index: 1000;
   opacity: 0;
   transform: translateY(-20px);

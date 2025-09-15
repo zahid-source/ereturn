@@ -2,7 +2,7 @@
   <div class="card">
     <!-- Left Section -->
     <div class="card-left">
-      <h2 class="title">TIN URL Generator</h2>
+      <h2 class="title">Ereturn user access</h2>
       <p class="lead">Enter a 12-digit TIN and press <strong>Generate</strong>.</p>
 
       <div class="form-row">
@@ -13,7 +13,7 @@
           placeholder="Enter 12-digit TIN"
           class="tin-input"
         />
-        <button class="btn" (click)="generateUrl()">Generate</button>
+        <button class="btn" (click)="generateUrl()" [disabled]="this.tin.length!=12">Generate</button>
       </div>
 
       <div class="hint">Only digits allowed. Length must be exactly 12.</div>
@@ -24,13 +24,13 @@
       <h3 class="title-sm">Generated URL</h3>
       <div class="url-box">{{ generatedUrl }}</div>
       <div class="actions">
-        <button class="small ghost" (click)="redirect()">Redirect</button>
-        <button class="small btn" (click)="copy()">Copy</button>
+        <button class="small btn" (click)="redirect()">Redirect</button>
+        <button class="small ghost" (click)="copy()">Copy</button>
       </div>
     </div>
   </div>
   @if(showToast){
-    <div class="toast">
+    <div [ngClass]="{ 'toast-success': toastType === 'success', 'toast-error': toastType === 'error' }">
       {{ toastMessage }}
     </div>
   }

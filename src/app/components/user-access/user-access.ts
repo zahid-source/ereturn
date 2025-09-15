@@ -1,12 +1,14 @@
 import {Component} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {ApiCallService, AuthRequest} from '../../service/api-call-service';
-import {BASE_URL_UI, PASSWORD} from '../../service/constant';
+import {BASE_URL_UI, OTP, PASSWORD, PHONE} from '../../service/constant';
+import {NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-user-access',
   imports: [
-    FormsModule
+    FormsModule,
+    NgClass
   ],
   templateUrl: './user-access.html',
   styleUrl: './user-access.css'
@@ -16,12 +18,14 @@ export class UserAccess {
   generatedUrl: string = '-----';
   toastMessage: string = '';
   showToast: boolean = false;
+  toastType: string = 'success';
 
   constructor(private api: ApiCallService) {
   }
 
 
-  generateUrl() {
+  generateUrl(silent: boolean = false) {
+    // this.generatedUrl = '-----';
     const payload: AuthRequest = {
       username: this.tin,
       password: PASSWORD,
@@ -33,11 +37,11 @@ export class UserAccess {
 
     this.api.authenticate(payload).subscribe({
       next: (res) => {
-        this.toast('Authenticated successfully');
+        if(!silent)
+        this.toast('Url generated successfully');
         this.generatedUrl = BASE_URL_UI + '/#/trp/' + res.replyMessage.body.id_token + '/' + res.replyMessage.body.refresh_token;
       },
       error: (err) => {
-        this.toast('Registered Successfully');
         this.startSignUpProcess();
       }
     });
@@ -46,7 +50,7 @@ export class UserAccess {
   startSignUpProcess() {
     this.api.signUp({
       userIdentification: this.tin,
-      phone: '01834520200',
+      phone: PHONE,
       feature: 'REGISTRATION',
       userType: 'TAXPAYER'
     }).subscribe({
@@ -54,7 +58,7 @@ export class UserAccess {
         this.generatePassword();
       },
       error: (err) => {
-        this.toast('Sign-up failed');
+        this.errorToast('Invalid TIN/Password');
         console.error(err);
       }
     });
@@ -70,6 +74,14 @@ export class UserAccess {
   }
 
   toast(message: string) {
+    this.toastType = 'success';
+    this.toastMessage = message;
+    this.showToast = true;
+    setTimeout(() => (this.showToast = false), 2500);
+  }
+
+  errorToast(message: string) {
+    this.toastType = 'error';
     this.toastMessage = message;
     this.showToast = true;
     setTimeout(() => (this.showToast = false), 2500);
@@ -84,16 +96,16 @@ export class UserAccess {
   generatePassword() {
     this.api.generatePassword({
       userIdentification: this.tin,
-      phone: "01834520200",
+      phone: PHONE,
       newPass: PASSWORD,
       retypedNewPass: PASSWORD,
       feature: "REGISTRATION",
       userType: "TAXPAYER",
-      otp: "698569"
+      otp: OTP
     }).subscribe({
       next: (res) => {
         this.toast('New registration done successfully.');
-        this.generateUrl();
+        this.generateUrl(true);
       },
       error: (err) => {
         this.toast('Invalid TIN or cannot generate token using default password.');
