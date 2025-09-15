@@ -4,7 +4,7 @@ import {UserAccess} from './components/user-access/user-access';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, UserAccess],
+  imports: [UserAccess],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
