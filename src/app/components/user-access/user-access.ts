@@ -100,6 +100,7 @@ export class UserAccess {
       phone: PHONE,
       newPass: PASSWORD,
       retypedNewPass: PASSWORD,
+      authMethod: 'PHONE',
       feature: "REGISTRATION",
       userType: "TAXPAYER",
       otp: OTP
