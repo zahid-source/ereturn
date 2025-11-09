@@ -14,6 +14,7 @@ export interface AuthRequest {
 export interface SignUpRequest {
   userIdentification: string;
   phone: string;
+  authMethod: string;
   feature: string;
   userType: string;
 }

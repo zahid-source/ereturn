@@ -51,6 +51,7 @@ export class UserAccess {
     this.api.signUp({
       userIdentification: this.tin,
       phone: PHONE,
+      authMethod: 'PHONE',
       feature: 'REGISTRATION',
       userType: 'TAXPAYER'
     }).subscribe({
